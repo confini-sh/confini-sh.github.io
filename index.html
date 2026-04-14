@@ -1,43 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>confini-sh | Secrets Governance Engine</title>
+    <title>confini-sh | Identity-First Secrets Governance</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
+        .hero-gradient { background: radial-gradient(circle at center, #18181b 0%, #09090b 100%); }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 flex items-center justify-center min-h-screen border-t-4 border-blue-600">
+<body class="bg-zinc-950 text-zinc-100 selection:bg-blue-500/30">
 
-    <div class="text-center px-6">
-        <div class="flex items-center justify-center gap-3 mb-8">
-            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-black text-white shadow-lg shadow-blue-500/20">C</div>
-            <span class="text-2xl font-black uppercase tracking-tighter mono">confini-sh</span>
+    <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-black text-xs text-white">C</div>
+                <span class="text-lg font-black uppercase tracking-tighter mono">confini-sh</span>
+                <span class="ml-2 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500 text-[8px] font-black uppercase tracking-widest border border-amber-500/20">Alpha</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-zinc-400">
+                <a href="#dx" class="hover:text-white transition-colors">Experience</a>
+                <a href="#security" class="hover:text-white transition-colors">Security</a>
+                <a href="#governance" class="hover:text-white transition-colors">Governance</a>
+            </div>
+            <a href="#waitlist" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-lg shadow-blue-500/20">Join Waitlist</a>
         </div>
+    </nav>
 
-        <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-transparent">
-            Secrets Governance <br> is warming up.
-        </h1>
-        
-        <p class="text-zinc-400 max-w-lg mx-auto mb-10 text-lg leading-relaxed">
-            A minimalist, Go-native secrets engine designed for identity-first infrastructure. 
-            <span class="text-blue-500 font-bold">Private VPC</span>, <span class="text-blue-500 font-bold">AWS STS</span>, and <span class="text-blue-500 font-bold">Deep Auditing</span> out of the box.
-        </p>
-
-        <div class="inline-flex items-center gap-4 px-6 py-3 bg-zinc-900 border border-zinc-800 rounded-2xl mb-12">
-            <span class="text-zinc-500 uppercase text-[10px] font-black tracking-widest">Alpha Release</span>
-            <div class="h-4 w-px bg-zinc-800"></div>
-            <span class="text-blue-400 font-bold mono">APRIL 27, 2026</span>
+    <header class="relative pt-32 pb-20 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-left">
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-6">
+                    Secrets <br> <span class="text-zinc-500">Governance</span>
+                </h1>
+                <p class="text-xl text-zinc-400 mb-10 max-w-lg leading-relaxed">
+                    A minimalist, Go-native secrets engine that maps human and machine identities to your infrastructure. No master passwords. No friction.
+                </p>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-8">
+                    <span class="text-[10px] uppercase font-black text-zinc-600 block mb-2 tracking-[0.2em]">Quick Start</span>
+                    <code class="mono text-blue-400 text-sm italic">brew install confini-sh</code>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                <img src="assets/hero-split-vault.png" alt="Confini-sh Dashboard" class="relative rounded-2xl border border-zinc-800 shadow-2xl">
+            </div>
         </div>
+    </header>
 
-        <div class="text-[10px] uppercase font-black tracking-[0.3em] text-zinc-600">
-            &copy; 2026 confini-sh &bull; Build in Public
+    <section id="dx" class="py-24 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div class="order-2 lg:order-1">
+                <img src="assets/terminal-options-ray.png" alt="CLI Interaction" class="rounded-xl shadow-2xl border border-zinc-800">
+            </div>
+            <div class="order-1 lg:order-2">
+                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Experience</h2>
+                <h3 class="text-4xl font-bold mb-6 tracking-tight">Stay in the flow.</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">1</div>
+                        <p class="text-zinc-400"><strong class="text-zinc-100">Zero-Disk Injection:</strong> Use <code class="mono text-xs">confini run</code> to inject secrets directly into memory. No plaintext leftovers on disk.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">2</div>
+                        <p class="text-zinc-400"><strong class="text-zinc-100">Native Speed:</strong> Built in Go for instantaneous handshakes across macOS, Linux, and Windows.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section id="governance" class="py-24 bg-zinc-900/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Governance</h2>
+                <h3 class="text-4xl font-bold mb-6 tracking-tight">Intelligent Scoping.</h3>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
+                    <h4 class="font-bold mb-2">Public vs. Encrypted</h4>
+                    <p class="text-sm text-zinc-500">Audit the secrets that matter. Hide keys; show metadata.</p>
+                </div>
+                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
+                    <h4 class="font-bold mb-2">Shared vs. Scoped</h4>
+                    <p class="text-sm text-zinc-500">Manage global company constants and service secrets in one vault.</p>
+                </div>
+                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
+                    <h4 class="font-bold mb-2">Presence Matrix</h4>
+                    <p class="text-sm text-zinc-500">Instantly spot missing configurations across all environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="py-24">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Security+</h2>
+                <h3 class="text-4xl font-bold mb-6 tracking-tight">Your Infrastructure. <br> Your Sovereignty.</h3>
+                <p class="text-zinc-400 mb-8 leading-relaxed">Host confini-sh in your <strong>Private VPC</strong> or On-Premise for total data control.</p>
+                <ul class="space-y-4 text-sm text-zinc-500">
+                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> AWS STS for Machine Auth</li>
+                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> AWS KMS or Internal Encryption</li>
+                </ul>
+            </div>
+            <div>
+                <img src="assets/detail-audit-dark.png" alt="Audit Detail" class="rounded-xl shadow-2xl border border-zinc-800">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-600">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-white text-5xl md:text-7xl font-black tracking-tighter mb-4 leading-none">Unlimited Scale.</h2>
+            <p class="text-blue-100 font-bold uppercase tracking-widest text-xs">Unlimited Users • Unlimited Nodes • Unlimited Environments</p>
+        </div>
+    </section>
+
+    <section id="waitlist" class="py-32 bg-zinc-950">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h3 class="text-4xl font-black tracking-tight mb-4 text-white uppercase italic">Ready to reclaim your secrets?</h3>
+            <form class="flex flex-col sm:flex-row gap-2 mb-6">
+                <input type="email" placeholder="Enter your work email" class="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-600 transition-all font-medium text-white">
+                <button class="bg-blue-600 hover:bg-blue-500 text-white font-black uppercase text-xs tracking-widest px-8 py-4 rounded-xl transition-all shadow-xl shadow-blue-500/20 active:scale-95">Join Waitlist</button>
+            </form>
+            <p class="text-[10px] text-zinc-600 uppercase font-black tracking-widest italic">Building in Public • Alpha Release Coming Soon</p>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-zinc-900 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="w-6 h-6 bg-zinc-800 rounded flex items-center justify-center font-black text-[10px] text-zinc-400">C</div>
+            <span class="text-sm font-black uppercase tracking-tighter mono text-zinc-500">confini-sh</span>
+        </div>
+        <div class="text-zinc-800 text-[10px] uppercase font-black tracking-widest">
+            &copy; 2026 confini-sh
+        </div>
+    </footer>
 
 </body>
 </html>
