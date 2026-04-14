@@ -10,203 +10,181 @@
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .hero-gradient { background: radial-gradient(circle at center, #18181b 0%, #09090b 100%); }
-        
-        /* SLIDER SPECIFIC STYLES */
-        .slider-container { position: relative; width: 100%; overflow: hidden; }
-        .slider-image { display: block; width: 100%; height: auto; }
-        .slider-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid #2563eb; }
-        .slider-overlay img { display: block; width: 100%; height: auto; max-width: none; }
-        
-        .slider-handle {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px; height: 40px;
-            background-color: #2563eb; border-radius: 50%;
-            cursor: ew-resize; z-index: 10;
-            display: flex; items-center; justify-center;
-            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
-            transition: background-color 0.2s;
-        }
-        .slider-handle:hover { background-color: #3b82f6; }
-        .slider-handle-icon { width: 16px; height: 16px; fill: white; }
+        .slider-container { position: relative; width: 100%; height: 100%; overflow: hidden; user-select: none; }
+        .slider-image-base { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left; cursor: zoom-in; }
+        .slider-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid #2563eb; z-index: 2; pointer-events: none; }
+        .slider-image-overlay { display: block; height: 100%; object-fit: cover; object-position: left; pointer-events: auto; cursor: zoom-in; }
+        .slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #2563eb; z-index: 10; cursor: ew-resize; transform: translateX(-50%); }
+        .slider-handle-pill { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 0 20px rgba(37, 99, 235, 0.6); }
+        #zoomModal.active { display: flex; animation: fadeIn 0.15s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .zoomable { cursor: zoom-in; transition: transform 0.2s; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 selection:bg-blue-500/30">
+<body class="bg-zinc-950 text-zinc-100 selection:bg-blue-500/30 text-left">
 
     <nav class="fixed top-0 w-full z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-black text-xs text-white">C</div>
+                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-black text-xs text-white shadow-lg shadow-blue-600/20">C</div>
                 <span class="text-lg font-black uppercase tracking-tighter mono">confini-sh</span>
-                <span class="ml-2 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500 text-[8px] font-black uppercase tracking-widest border border-amber-500/20">Alpha</span>
             </div>
-            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest text-zinc-400">
-                <a href="#dx" class="hover:text-white transition-colors">Experience</a>
-                <a href="#security" class="hover:text-white transition-colors">Security</a>
-                <a href="#governance" class="hover:text-white transition-colors">Governance</a>
+            <div class="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                <a href="#workflow" class="hover:text-white transition-colors">Workflow</a>
+                <a href="#people" class="hover:text-white transition-colors">People Ops</a>
+                <a href="#scoping" class="hover:text-white transition-colors">Governance</a>
+                <a href="#security" class="hover:text-white transition-colors">Sovereignty</a>
             </div>
-            <a href="#waitlist" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-lg shadow-blue-500/20">Join Waitlist</a>
+            <a href="#waitlist" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all">Join Waitlist</a>
         </div>
     </nav>
 
-    <header class="relative pt-32 pb-20 overflow-hidden hero-gradient border-b border-zinc-900">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr,1.5fr] gap-12 items-center">
+    <header class="relative pt-32 pb-24 hero-gradient border-b border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr,1.4fr] gap-16 items-center">
             <div class="text-left">
-                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-6">
-                    Secrets <br> <span class="text-zinc-500">Governance</span>
-                </h1>
-                <p class="text-xl text-zinc-400 mb-10 max-w-lg leading-relaxed">
-                    A minimalist, Go-native secrets engine that maps human and machine identities to your infrastructure. No master passwords. No friction.
-                </p>
-                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-8 max-w-sm">
-                    <span class="text-[10px] uppercase font-black text-zinc-600 block mb-2 tracking-[0.2em]">Quick Start</span>
-                    <code class="mono text-blue-400 text-sm italic">brew install confini-sh</code>
-                </div>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] mb-8 uppercase italic">Identity-First <br> <span class="text-zinc-600">Local to Production.</span></h1>
+                <p class="text-lg text-zinc-400 mb-10 max-w-lg leading-relaxed italic">The unified governance engine for sovereign teams. Centralize secret management across every instance while hosting your Confini server in a fully <span class="text-zinc-200">air-gapped VPC</span>.</p>
+                <div class="bg-zinc-900/50 border border-zinc-800 p-4 rounded-xl max-w-xs group"><span class="text-[9px] uppercase font-black text-zinc-600 block mb-2 tracking-widest">Single Go Binary</span><code class="mono text-blue-400 text-sm italic">brew install confini-sh</code></div>
             </div>
-            
-            <div class="relative group aspect-[16/10] rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden">
-                <div class="slider-container h-full" id="heroSlider">
-                    <img src="assets/secret-list-lt.png" alt="Confini-sh Dashboard Light" class="slider-image h-full w-full object-cover">
-                    
-                    <div class="slider-overlay" id="sliderOverlay">
-                        <img src="assets/secret-list-dk.png" alt="Confini-sh Dashboard Dark" class="h-full w-full object-cover max-w-none">
-                    </div>
-                    
-                    <div class="slider-handle" id="sliderHandle">
-                        <svg class="slider-handle-icon" viewBox="0 0 24 24"><path d="M17 11H7a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2zM7 19v-6h10v6H7zm8-9V6a3 3 0 00-6 0v4H7a2 2 0 012-2V6a1 1 0 012 0v2h2V6a1 1 0 012 0v2a2 2 0 012 2h-2z"/></svg>
-                    </div>
+            <div class="relative aspect-[16/10] rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden bg-zinc-900">
+                <div class="slider-container" id="heroSlider">
+                    <img src="assets/secret-list-lt.png" class="slider-image-base" alt="UI" onclick="openZoom(this.src)">
+                    <div class="slider-overlay" id="sliderOverlay"><img src="assets/secret-list-dk.png" id="overlayImage" class="slider-image-overlay" alt="UI" onclick="openZoom(this.src)"></div>
+                    <div class="slider-handle" id="sliderHandle"><div class="slider-handle-pill"><div class="w-1 h-4 bg-white/40 rounded-full"></div><div class="w-1 h-4 bg-white/40 rounded-full"></div></div></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="dx" class="py-24">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-            <div class="order-2 lg:order-1">
-                <img src="assets/ray-so-export.png" alt="CLI Interaction" class="rounded-xl shadow-2xl border border-zinc-800">
-            </div>
-            <div class="order-1 lg:order-2">
-                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Experience</h2>
-                <h3 class="text-4xl font-bold mb-6 tracking-tight">Stay in the flow.</h3>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">1</div>
-                        <p class="text-zinc-400"><strong class="text-zinc-100">Zero-Disk Injection:</strong> Use <code class="mono text-xs">confini run</code> to inject secrets directly into memory.</p>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">2</div>
-                        <p class="text-zinc-400"><strong class="text-zinc-100">Native Speed:</strong> Built in Go for instantaneous handshakes.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="governance" class="py-24 bg-zinc-900/30">
+    <section id="workflow" class="py-24 border-b border-zinc-900 bg-zinc-950">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Governance</h2>
-                <h3 class="text-4xl font-bold mb-6 tracking-tight">Intelligent Scoping.</h3>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
-                    <h4 class="font-bold mb-2">Public vs. Encrypted</h4>
-                    <p class="text-sm text-zinc-500">Audit the secrets that matter.</p>
+            <h3 class="text-center text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-24">Engineering Workflow, <span class="text-zinc-600">Hardened.</span></h3>
+            <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto relative">
+                <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none lg:-translate-x-12">
+                    <div class="flex items-center gap-4 bg-zinc-950/80 px-6 py-2 rounded-full border border-blue-600/20 backdrop-blur-sm shadow-xl shadow-blue-600/5">
+                        <div class="text-sm font-bold uppercase tracking-widest text-blue-400">Codify This Chaos</div>
+                        <svg class="w-10 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
                 </div>
-                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
-                    <h4 class="font-bold mb-2">Shared vs. Scoped</h4>
-                    <p class="text-sm text-zinc-500">Manage shared constants and service secrets in one vault.</p>
+                <div class="relative group z-0">
+                    <div class="absolute -top-4 left-4 px-3 py-1 bg-zinc-800 text-zinc-500 text-[9px] font-black uppercase tracking-widest rounded-md z-10 border border-zinc-700">The Liability</div>
+                    <img src="assets/whatsapp-chat.png" class="zoomable rounded-2xl border border-zinc-800 shadow-2xl desaturate group-hover:desaturate-0 transition-all duration-500" alt="Chaos" onclick="openZoom(this.src)">
+                    <p class="mt-4 text-xs text-zinc-500 italic">Manual resends &middot; No Audit Trail</p>
                 </div>
-                <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
-                    <h4 class="font-bold mb-2">Presence Matrix</h4>
-                    <p class="text-sm text-zinc-500">Instantly spot missing configurations across all environments.</p>
+                <div class="relative group z-0">
+                    <div class="absolute -top-4 left-4 px-3 py-1 bg-blue-600 text-white text-[9px] font-black uppercase tracking-widest rounded-md z-10 shadow-lg">The Asset</div>
+                    <img src="assets/cli.png" class="zoomable rounded-2xl border border-zinc-800 shadow-2xl bg-zinc-900" alt="Order" onclick="openZoom(this.src)">
+                    <div class="mt-8 space-y-4 text-left px-4">
+                        <p class="text-xs text-zinc-400 italic"><strong class="text-blue-500 uppercase not-italic">On-Demand Sync:</strong> <code class="mono text-zinc-200">confini --env</code> fetches latest secrets and <span class="text-zinc-100">overwrites stale local config</span> in one step.</p>
+                        <p class="text-xs text-zinc-400 italic"><strong class="text-blue-500 uppercase not-italic">Memory Injection:</strong> <code class="mono text-zinc-200">confini run</code> wraps your process, injecting secrets into memory only.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="security" class="py-24">
+    <section id="people" class="py-24 border-b border-zinc-900">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
             <div>
-                <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Security+</h2>
-                <h3 class="text-4xl font-bold mb-6 tracking-tight">Total Sovereignty.</h3>
-                <p class="text-zinc-400 mb-8 leading-relaxed">Host confini-sh in your <strong>Private VPC</strong> or On-Premise for total data control.</p>
-                <ul class="space-y-4 text-sm text-zinc-500">
-                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> AWS STS for Machine Auth</li>
-                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> Internal or AWS KMS Encryption</li>
-                </ul>
+                <h2 class="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">People Operations</h2>
+                <h3 class="text-4xl font-black mb-8 italic uppercase text-white">Infrastructure for People.</h3>
+                <div class="space-y-6">
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">Zero-Overhead Onboarding</strong> Sign in via SSO with <strong>User-Level RBAC</strong>. If a user isn't found, assign a Default Role instantly upon their first login to prevent bottlenecks.</p>
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">SSH & SSO Auth</strong> Handshake via the tools you already use. Link machines via SSH keys and dashboard via Google OIDC. No master passwords.</p>
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">One-Click Elevation</strong> Define global roles once across the organization. Approve permission elevations or grant scoped access with a single click.</p>
+                </div>
             </div>
-            <div>
-                <img src="assets/secret-detail.png" alt="Secret Detail Panel" class="rounded-xl shadow-2xl border border-zinc-800 mb-8">
-                <img src="assets/user-detail-lt.png" alt="User Management Light" class="rounded-xl shadow-2xl border border-zinc-800">
+            <img src="assets/user-detail-lt.png" class="zoomable rounded-3xl border border-zinc-800 shadow-2xl bg-white" alt="Team" onclick="openZoom(this.src)">
+        </div>
+    </section>
+
+    <section id="scoping" class="py-24 bg-zinc-900/20 border-y border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-4xl font-black mb-16 italic uppercase text-center tracking-tight">Intelligent Scoping.</h3>
+            <div class="grid md:grid-cols-2 gap-12 text-left">
+                <div class="p-10 bg-zinc-950 border border-zinc-800 rounded-3xl hover:border-blue-600/30 transition-all group">
+                    <h4 class="text-xl font-black mb-4 group-hover:text-blue-400">Public vs. Encrypted</h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6">Field-level scoping to eliminate noise. Treat non-sensitive config differently than sensitive credentials.</p>
+                    <ul class="text-xs text-zinc-500 space-y-4 italic">
+                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1"></span> <span><strong>Public Scopes:</strong> Environment metadata visible at a glance for friction-less debugging.</span></li>
+                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-zinc-700 rounded-full mt-1"></span> <span><strong>Encrypted Scopes:</strong> High-value secrets stay masked behind an <strong>Audit-Gated Reveal Handshake</strong>.</span></li>
+                    </ul>
+                </div>
+                <div class="p-10 bg-zinc-950 border border-zinc-800 rounded-3xl hover:border-blue-600/30 transition-all group">
+                    <h4 class="text-xl font-black mb-4 group-hover:text-blue-400">Shared vs. Scoped</h4>
+                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6">Kill configuration drift. Move from duplicating shared keys across services to inheritance-based governance.</p>
+                    <ul class="text-xs text-zinc-500 space-y-4 italic">
+                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1"></span> <span><strong>Hierarchical Inheritance:</strong> Define global constants once in a Shared Scope. Propagate updates fleet-wide instantly.</span></li>
+                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-zinc-700 rounded-full mt-1"></span> <span><strong>Service-Specific Isolation:</strong> Secrets are strictly scoped to their repository perimeter, preventing cross-service exposure.</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-blue-600">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-white text-5xl md:text-7xl font-black tracking-tighter mb-4 leading-none">Unlimited Scale.</h2>
-            <p class="text-blue-100 font-bold uppercase tracking-widest text-xs">Unlimited Users • Unlimited Nodes • Unlimited Environments</p>
+    <section id="security" class="py-24 border-b border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <img src="assets/secret-detail.png" class="zoomable rounded-3xl border border-zinc-800 shadow-2xl bg-zinc-900 order-2 lg:order-1" alt="Security" onclick="openZoom(this.src)">
+            <div class="text-left order-1 lg:order-2">
+                <h2 class="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">Hardened</h2>
+                <h3 class="text-4xl font-black mb-8 italic uppercase text-white leading-tight">Sovereign Control.</h3>
+                <div class="space-y-8">
+                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Air-Gapped into your VPC</strong> Deploy your Confini server as a private instance. Your secrets never leave your network perimeter.</p>
+                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Traceable at every footstep</strong> Every reveal, fetch, or panel view is identity-linked and logged. Trace access back to specific SSH or SSO sessions.</p>
+                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Granular Field Sovereignty</strong> Sensible values are encrypted with full User-Level RBAC control. Maintain complete visibility over who can access specific field-level scopes.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="waitlist" class="py-32 bg-zinc-950">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <h3 class="text-4xl font-black tracking-tight mb-4 text-white uppercase italic">Ready to reclaim your secrets?</h3>
-            <form class="flex flex-col sm:flex-row gap-2 mb-6">
-                <input type="email" placeholder="Enter your work email" class="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-600 transition-all font-medium text-white">
-                <button class="bg-blue-600 hover:bg-blue-500 text-white font-black uppercase text-xs tracking-widest px-8 py-4 rounded-xl transition-all active:scale-95">Join Waitlist</button>
-            </form>
-            <p class="text-[10px] text-zinc-600 uppercase font-black tracking-widest italic">Building in Public • Alpha Release Coming Soon</p>
-        </div>
+    <section id="waitlist" class="py-32 text-center bg-blue-600">
+        <h3 class="text-5xl md:text-7xl font-black mb-10 uppercase italic text-white tracking-tighter">Reclaim your secrets.</h3>
+        <form id="waitlistForm" class="max-w-xl mx-auto flex flex-col sm:flex-row gap-3 px-6">
+            <input type="email" id="emailInput" required placeholder="work email" class="flex-1 bg-white/10 border border-white/20 rounded-2xl px-6 py-4 outline-none font-bold text-white placeholder:text-white/40 lowercase">
+            <button type="submit" id="submitBtn" class="bg-white text-blue-600 font-black uppercase text-xs tracking-widest px-10 py-5 rounded-2xl shadow-xl transition-all active:scale-95">Join Waitlist</button>
+        </form>
+        <p id="responseMsg" class="mt-4 text-white font-bold hidden uppercase text-xs tracking-widest">Done! We'll reach out soon.</p>
     </section>
 
-    <footer class="py-12 border-t border-zinc-900 text-center">
-        <div class="flex items-center justify-center gap-2 mb-4">
-            <div class="w-6 h-6 bg-zinc-800 rounded flex items-center justify-center font-black text-[10px] text-zinc-400">C</div>
-            <span class="text-sm font-black uppercase tracking-tighter mono text-zinc-500">confini-sh</span>
-        </div>
-        <div class="text-zinc-800 text-[10px] uppercase font-black tracking-widest">
-            &copy; 2026 confini-sh
-        </div>
-    </footer>
+    <footer class="py-12 text-center text-zinc-800 text-[9px] uppercase font-black tracking-[0.5em]">&copy; 2026 confini-sh &bull; Sovereignty First</footer>
+
+    <div id="zoomModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-zinc-950/95 backdrop-blur-xl p-4 md:p-12" onclick="closeZoom()">
+        <div class="absolute top-6 right-6 text-zinc-500 hover:text-white cursor-pointer p-2"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></div>
+        <img id="zoomedImage" src="" class="max-w-full max-h-full rounded-lg shadow-2xl object-contain" onclick="event.stopPropagation()">
+    </div>
 
     <script>
-        const container = document.getElementById('heroSlider');
-        const overlay = document.getElementById('sliderOverlay');
-        const handle = document.getElementById('sliderHandle');
-        let isResizing = false;
-
-        function updateSlider(x) {
-            const rect = container.getBoundingClientRect();
-            let position = ((x - rect.left) / rect.width) * 100;
-            
-            // Constrain position between 0 and 100
-            if (position < 0) position = 0;
-            if (position > 100) position = 100;
-
-            // Update DOM
-            overlay.style.width = position + '%';
-            handle.style.left = position + '%';
-        }
-
-        // Mouse Events
-        handle.addEventListener('mousedown', () => isResizing = true);
-        window.addEventListener('mouseup', () => isResizing = false);
-        window.addEventListener('mousemove', (e) => {
-            if (!isResizing) return;
-            updateSlider(e.clientX);
-        });
-
-        // Touch Events (Mobile support)
-        handle.addEventListener('touchstart', () => isResizing = true);
-        window.addEventListener('touchend', () => isResizing = false);
-        window.addEventListener('touchmove', (e) => {
-            if (!isResizing) return;
-            // Use the first touch point
-            updateSlider(e.touches[0].clientX);
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('heroSlider'), overlay = document.getElementById('sliderOverlay'), overlayImg = document.getElementById('overlayImage'), handle = document.getElementById('sliderHandle');
+            let isResizing = false;
+            if (container && handle) {
+                const updateSlider = (clientX) => {
+                    const rect = container.getBoundingClientRect();
+                    let pos = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+                    overlay.style.width = pos + '%'; handle.style.left = pos + '%'; overlayImg.style.width = rect.width + 'px';
+                };
+                const onMove = (e) => { if (!isResizing) return; const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; updateSlider(x); };
+                handle.addEventListener('mousedown', () => isResizing = true);
+                window.addEventListener('touchstart', (e) => { if(e.target === handle || handle.contains(e.target)) isResizing = true; });
+                window.addEventListener('mouseup', () => isResizing = false);
+                window.addEventListener('touchend', () => isResizing = false);
+                window.addEventListener('mousemove', onMove);
+                window.addEventListener('touchmove', onMove, { passive: false });
+                overlayImg.style.width = container.offsetWidth + 'px';
+                window.addEventListener('resize', () => overlayImg.style.width = container.offsetWidth + 'px');
+            }
+            window.openZoom = function(src) { if (isResizing) return; document.getElementById('zoomedImage').src = src; document.getElementById('zoomModal').classList.add('active'); document.body.style.overflow = 'hidden'; };
+            window.closeZoom = function() { document.getElementById('zoomModal').classList.remove('active'); document.body.style.overflow = 'auto'; };
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeZoom(); });
+            const form = document.getElementById('waitlistForm');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    document.getElementById('submitBtn').innerText = 'SENDING...';
+                    setTimeout(() => { form.classList.add('hidden'); document.getElementById('responseMsg').classList.remove('hidden'); }, 1000);
+                });
+            }
         });
     </script>
-
 </body>
 </html>
