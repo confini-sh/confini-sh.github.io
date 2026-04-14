@@ -10,6 +10,25 @@
         body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .hero-gradient { background: radial-gradient(circle at center, #18181b 0%, #09090b 100%); }
+        
+        /* SLIDER SPECIFIC STYLES */
+        .slider-container { position: relative; width: 100%; overflow: hidden; }
+        .slider-image { display: block; width: 100%; height: auto; }
+        .slider-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid #2563eb; }
+        .slider-overlay img { display: block; width: 100%; height: auto; max-width: none; }
+        
+        .slider-handle {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            background-color: #2563eb; border-radius: 50%;
+            cursor: ew-resize; z-index: 10;
+            display: flex; items-center; justify-center;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+            transition: background-color 0.2s;
+        }
+        .slider-handle:hover { background-color: #3b82f6; }
+        .slider-handle-icon { width: 16px; height: 16px; fill: white; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-100 selection:bg-blue-500/30">
@@ -30,8 +49,8 @@
         </div>
     </nav>
 
-    <header class="relative pt-32 pb-20 overflow-hidden hero-gradient">
-        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <header class="relative pt-32 pb-20 overflow-hidden hero-gradient border-b border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr,1.5fr] gap-12 items-center">
             <div class="text-left">
                 <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-6">
                     Secrets <br> <span class="text-zinc-500">Governance</span>
@@ -39,22 +58,32 @@
                 <p class="text-xl text-zinc-400 mb-10 max-w-lg leading-relaxed">
                     A minimalist, Go-native secrets engine that maps human and machine identities to your infrastructure. No master passwords. No friction.
                 </p>
-                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-8">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-8 max-w-sm">
                     <span class="text-[10px] uppercase font-black text-zinc-600 block mb-2 tracking-[0.2em]">Quick Start</span>
                     <code class="mono text-blue-400 text-sm italic">brew install confini-sh</code>
                 </div>
             </div>
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-                <img src="assets/hero-split-vault.png" alt="Confini-sh Dashboard" class="relative rounded-2xl border border-zinc-800 shadow-2xl">
+            
+            <div class="relative group aspect-[16/10] rounded-2xl border border-zinc-800 shadow-2xl overflow-hidden">
+                <div class="slider-container h-full" id="heroSlider">
+                    <img src="assets/secret-list-lt.png" alt="Confini-sh Dashboard Light" class="slider-image h-full w-full object-cover">
+                    
+                    <div class="slider-overlay" id="sliderOverlay">
+                        <img src="assets/secret-list-dk.png" alt="Confini-sh Dashboard Dark" class="h-full w-full object-cover max-w-none">
+                    </div>
+                    
+                    <div class="slider-handle" id="sliderHandle">
+                        <svg class="slider-handle-icon" viewBox="0 0 24 24"><path d="M17 11H7a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2zM7 19v-6h10v6H7zm8-9V6a3 3 0 00-6 0v4H7a2 2 0 012-2V6a1 1 0 012 0v2h2V6a1 1 0 012 0v2a2 2 0 012 2h-2z"/></svg>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <section id="dx" class="py-24 border-t border-zinc-900">
+    <section id="dx" class="py-24">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
             <div class="order-2 lg:order-1">
-                <img src="assets/terminal-options-ray.png" alt="CLI Interaction" class="rounded-xl shadow-2xl border border-zinc-800">
+                <img src="assets/ray-so-export.png" alt="CLI Interaction" class="rounded-xl shadow-2xl border border-zinc-800">
             </div>
             <div class="order-1 lg:order-2">
                 <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Experience</h2>
@@ -62,11 +91,11 @@
                 <div class="space-y-6">
                     <div class="flex gap-4">
                         <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">1</div>
-                        <p class="text-zinc-400"><strong class="text-zinc-100">Zero-Disk Injection:</strong> Use <code class="mono text-xs">confini run</code> to inject secrets directly into memory. No plaintext leftovers on disk.</p>
+                        <p class="text-zinc-400"><strong class="text-zinc-100">Zero-Disk Injection:</strong> Use <code class="mono text-xs">confini run</code> to inject secrets directly into memory.</p>
                     </div>
                     <div class="flex gap-4">
                         <div class="mt-1 w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-[10px]">2</div>
-                        <p class="text-zinc-400"><strong class="text-zinc-100">Native Speed:</strong> Built in Go for instantaneous handshakes across macOS, Linux, and Windows.</p>
+                        <p class="text-zinc-400"><strong class="text-zinc-100">Native Speed:</strong> Built in Go for instantaneous handshakes.</p>
                     </div>
                 </div>
             </div>
@@ -82,11 +111,11 @@
             <div class="grid md:grid-cols-3 gap-8 text-center">
                 <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
                     <h4 class="font-bold mb-2">Public vs. Encrypted</h4>
-                    <p class="text-sm text-zinc-500">Audit the secrets that matter. Hide keys; show metadata.</p>
+                    <p class="text-sm text-zinc-500">Audit the secrets that matter.</p>
                 </div>
                 <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
                     <h4 class="font-bold mb-2">Shared vs. Scoped</h4>
-                    <p class="text-sm text-zinc-500">Manage global company constants and service secrets in one vault.</p>
+                    <p class="text-sm text-zinc-500">Manage shared constants and service secrets in one vault.</p>
                 </div>
                 <div class="p-8 bg-zinc-950 border border-zinc-800 rounded-2xl">
                     <h4 class="font-bold mb-2">Presence Matrix</h4>
@@ -100,15 +129,16 @@
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
             <div>
                 <h2 class="text-sm font-black text-blue-500 uppercase tracking-[0.3em] mb-4">Security+</h2>
-                <h3 class="text-4xl font-bold mb-6 tracking-tight">Your Infrastructure. <br> Your Sovereignty.</h3>
+                <h3 class="text-4xl font-bold mb-6 tracking-tight">Total Sovereignty.</h3>
                 <p class="text-zinc-400 mb-8 leading-relaxed">Host confini-sh in your <strong>Private VPC</strong> or On-Premise for total data control.</p>
                 <ul class="space-y-4 text-sm text-zinc-500">
                     <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> AWS STS for Machine Auth</li>
-                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> AWS KMS or Internal Encryption</li>
+                    <li class="flex items-center gap-3 font-medium text-zinc-300"><span class="text-blue-500">✔</span> Internal or AWS KMS Encryption</li>
                 </ul>
             </div>
             <div>
-                <img src="assets/detail-audit-dark.png" alt="Audit Detail" class="rounded-xl shadow-2xl border border-zinc-800">
+                <img src="assets/secret-detail.png" alt="Secret Detail Panel" class="rounded-xl shadow-2xl border border-zinc-800 mb-8">
+                <img src="assets/user-detail-lt.png" alt="User Management Light" class="rounded-xl shadow-2xl border border-zinc-800">
             </div>
         </div>
     </section>
@@ -125,7 +155,7 @@
             <h3 class="text-4xl font-black tracking-tight mb-4 text-white uppercase italic">Ready to reclaim your secrets?</h3>
             <form class="flex flex-col sm:flex-row gap-2 mb-6">
                 <input type="email" placeholder="Enter your work email" class="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-600 transition-all font-medium text-white">
-                <button class="bg-blue-600 hover:bg-blue-500 text-white font-black uppercase text-xs tracking-widest px-8 py-4 rounded-xl transition-all shadow-xl shadow-blue-500/20 active:scale-95">Join Waitlist</button>
+                <button class="bg-blue-600 hover:bg-blue-500 text-white font-black uppercase text-xs tracking-widest px-8 py-4 rounded-xl transition-all active:scale-95">Join Waitlist</button>
             </form>
             <p class="text-[10px] text-zinc-600 uppercase font-black tracking-widest italic">Building in Public • Alpha Release Coming Soon</p>
         </div>
@@ -140,6 +170,43 @@
             &copy; 2026 confini-sh
         </div>
     </footer>
+
+    <script>
+        const container = document.getElementById('heroSlider');
+        const overlay = document.getElementById('sliderOverlay');
+        const handle = document.getElementById('sliderHandle');
+        let isResizing = false;
+
+        function updateSlider(x) {
+            const rect = container.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            
+            // Constrain position between 0 and 100
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+
+            // Update DOM
+            overlay.style.width = position + '%';
+            handle.style.left = position + '%';
+        }
+
+        // Mouse Events
+        handle.addEventListener('mousedown', () => isResizing = true);
+        window.addEventListener('mouseup', () => isResizing = false);
+        window.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            updateSlider(e.clientX);
+        });
+
+        // Touch Events (Mobile support)
+        handle.addEventListener('touchstart', () => isResizing = true);
+        window.addEventListener('touchend', () => isResizing = false);
+        window.addEventListener('touchmove', (e) => {
+            if (!isResizing) return;
+            // Use the first touch point
+            updateSlider(e.touches[0].clientX);
+        });
+    </script>
 
 </body>
 </html>
