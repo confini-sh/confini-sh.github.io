@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>confini-sh | Identity-First Secrets Governance</title>
@@ -57,8 +58,8 @@
     </header>
 
     <section id="workflow" class="py-24 border-b border-zinc-900 bg-zinc-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <h3 class="text-center text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-24">Engineering Workflow, <span class="text-zinc-600">Hardened.</span></h3>
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h3 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-24">Engineering Workflow, <span class="text-zinc-600">Hardened.</span></h3>
             <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto relative">
                 <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none lg:-translate-x-12">
                     <div class="flex items-center gap-4 bg-zinc-950/80 px-6 py-2 rounded-full border border-blue-600/20 backdrop-blur-sm shadow-xl shadow-blue-600/5">
@@ -68,8 +69,8 @@
                 </div>
                 <div class="relative group z-0">
                     <div class="absolute -top-4 left-4 px-3 py-1 bg-zinc-800 text-zinc-500 text-[9px] font-black uppercase tracking-widest rounded-md z-10 border border-zinc-700">The Liability</div>
-                    <img src="assets/whatsapp-chat.png" class="zoomable rounded-2xl border border-zinc-800 shadow-2xl desaturate group-hover:desaturate-0 transition-all duration-500" alt="Chaos" onclick="openZoom(this.src)">
-                    <p class="mt-4 text-xs text-zinc-500 italic">Manual resends &middot; No Audit Trail</p>
+                    <img src="assets/whatsapp-chat.png" class="zoomable rounded-2xl border border-zinc-800 shadow-2xl desaturate opacity-40 hover:opacity-100 transition-all duration-500" alt="Chaos" onclick="openZoom(this.src)">
+                    <p class="mt-4 text-xs text-zinc-500 italic text-center">Manual resends &middot; No Audit Trail</p>
                 </div>
                 <div class="relative group z-0">
                     <div class="absolute -top-4 left-4 px-3 py-1 bg-blue-600 text-white text-[9px] font-black uppercase tracking-widest rounded-md z-10 shadow-lg">The Asset</div>
@@ -89,9 +90,9 @@
                 <h2 class="text-[10px] font-black text-blue-500 uppercase tracking-[0.4em] mb-4">People Operations</h2>
                 <h3 class="text-4xl font-black mb-8 italic uppercase text-white">Infrastructure for People.</h3>
                 <div class="space-y-6">
-                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">Zero-Overhead Onboarding</strong> Sign in via SSO with <strong>User-Level RBAC</strong>. If a user isn't found, assign a Default Role instantly upon their first login to prevent bottlenecks.</p>
-                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">SSH & SSO Auth</strong> Handshake via the tools you already use. Link machines via SSH keys and dashboard via Google OIDC. No master passwords.</p>
-                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">One-Click Elevation</strong> Define global roles once across the organization. Approve permission elevations or grant scoped access with a single click.</p>
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">Zero-Overhead Onboarding</strong> Sign in via SSO with <strong>User-Level RBAC</strong>. If a user isn't found, assign a Default Role instantly upon first login.</p>
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">SSH & SSO Auth</strong> Handshake via existing identities. Link machines via <strong>SSH keys</strong> and dashboard via <strong>Google OIDC</strong>. No master passwords.</p>
+                    <p class="text-sm text-zinc-400 italic"><strong class="text-blue-500 uppercase text-[10px] block mb-1">One-Click Elevation</strong> Define global roles once. DevOps can approve permission elevations or grant scoped access with a single click.</p>
                 </div>
             </div>
             <img src="assets/user-detail-lt.png" class="zoomable rounded-3xl border border-zinc-800 shadow-2xl bg-white" alt="Team" onclick="openZoom(this.src)">
@@ -104,18 +105,18 @@
             <div class="grid md:grid-cols-2 gap-12 text-left">
                 <div class="p-10 bg-zinc-950 border border-zinc-800 rounded-3xl hover:border-blue-600/30 transition-all group">
                     <h4 class="text-xl font-black mb-4 group-hover:text-blue-400">Public vs. Encrypted</h4>
-                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6">Field-level scoping to eliminate noise. Treat non-sensitive config differently than sensitive credentials.</p>
+                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6"><strong>Field-level scoping</strong> to eliminate noise. Treat non-sensitive config differently than sensitive credentials.</p>
                     <ul class="text-xs text-zinc-500 space-y-4 italic">
-                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1"></span> <span><strong>Public Scopes:</strong> Environment metadata visible at a glance for friction-less debugging.</span></li>
-                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-zinc-700 rounded-full mt-1"></span> <span><strong>Encrypted Scopes:</strong> High-value secrets stay masked behind an <strong>Audit-Gated Reveal Handshake</strong>.</span></li>
+                        <li><strong>Public Scopes:</strong> Metadata visible at a glance for friction-less debugging.</li>
+                        <li><strong>Encrypted Scopes:</strong> High-value secrets stay masked behind an <strong>Audit-Gated Reveal Handshake</strong>.</li>
                     </ul>
                 </div>
                 <div class="p-10 bg-zinc-950 border border-zinc-800 rounded-3xl hover:border-blue-600/30 transition-all group">
                     <h4 class="text-xl font-black mb-4 group-hover:text-blue-400">Shared vs. Scoped</h4>
-                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6">Kill configuration drift. Move from duplicating shared keys across services to inheritance-based governance.</p>
+                    <p class="text-sm text-zinc-400 leading-relaxed italic mb-6">Kill configuration drift. Move from duplicating shared keys to inheritance-based governance.</p>
                     <ul class="text-xs text-zinc-500 space-y-4 italic">
-                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1"></span> <span><strong>Hierarchical Inheritance:</strong> Define global constants once in a Shared Scope. Propagate updates fleet-wide instantly.</span></li>
-                        <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-zinc-700 rounded-full mt-1"></span> <span><strong>Service-Specific Isolation:</strong> Secrets are strictly scoped to their repository perimeter, preventing cross-service exposure.</span></li>
+                        <li><strong>Hierarchical Inheritance:</strong> Define global constants once. Propagate updates fleet-wide instantly.</li>
+                        <li><strong>Service Isolation:</strong> Secrets are strictly scoped to their repository perimeter.</li>
                     </ul>
                 </div>
             </div>
@@ -130,20 +131,35 @@
                 <h3 class="text-4xl font-black mb-8 italic uppercase text-white leading-tight">Sovereign Control.</h3>
                 <div class="space-y-8">
                     <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Air-Gapped into your VPC</strong> Deploy your Confini server as a private instance. Your secrets never leave your network perimeter.</p>
-                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Traceable at every footstep</strong> Every reveal, fetch, or panel view is identity-linked and logged. Trace access back to specific SSH or SSO sessions.</p>
-                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Granular Field Sovereignty</strong> Sensible values are encrypted with full User-Level RBAC control. Maintain complete visibility over who can access specific field-level scopes.</p>
+                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Traceable at every footstep</strong> Every reveal is identity-linked and logged. Trace access back to specific SSH or SSO sessions.</p>
+                    <p class="text-sm text-zinc-500 italic leading-relaxed"><strong class="text-zinc-300 uppercase text-[10px] block mb-1">Field-Level Sovereignty</strong> Sensible values are encrypted with full <strong>User-Level RBAC</strong> control over specific field scopes.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="waitlist" class="py-32 text-center bg-blue-600">
-        <h3 class="text-5xl md:text-7xl font-black mb-10 uppercase italic text-white tracking-tighter">Reclaim your secrets.</h3>
-        <form id="waitlistForm" class="max-w-xl mx-auto flex flex-col sm:flex-row gap-3 px-6">
-            <input type="email" id="emailInput" required placeholder="work email" class="flex-1 bg-white/10 border border-white/20 rounded-2xl px-6 py-4 outline-none font-bold text-white placeholder:text-white/40 lowercase">
-            <button type="submit" id="submitBtn" class="bg-white text-blue-600 font-black uppercase text-xs tracking-widest px-10 py-5 rounded-2xl shadow-xl transition-all active:scale-95">Join Waitlist</button>
-        </form>
-        <p id="responseMsg" class="mt-4 text-white font-bold hidden uppercase text-xs tracking-widest">Done! We'll reach out soon.</p>
+    <div class="max-w-2xl mx-auto px-6">
+        <h3 class="text-5xl md:text-7xl font-black mb-8 uppercase italic text-white tracking-tighter">Reclaim your secrets.</h3>
+        <p class="text-white/80 font-bold uppercase text-xs tracking-widest mb-10 leading-relaxed">
+            Early access is currently by-invite only.<br>
+            Fill out the request form to join the sovereign tier.
+        </p>
+        
+        <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLScbkKRUCFNj3ct3hY2qsdWZWUC2du6pMVmWwwvH2OiGNGzQug/viewform?usp=confini-sh.github.io" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="inline-block bg-white text-blue-600 font-black uppercase text-sm tracking-widest px-12 py-6 rounded-2xl shadow-2xl transition-all hover:scale-105 active:scale-95"
+        >
+            Open Request Form
+        </a>
+        
+        <p class="mt-8 text-white/50 text-[10px] font-bold uppercase tracking-widest">
+            Opens in a new tab &middot; Powered by Google Forms
+        </p>
+    </div>
+
     </section>
 
     <footer class="py-12 text-center text-zinc-800 text-[9px] uppercase font-black tracking-[0.5em]">&copy; 2026 confini-sh &bull; Sovereignty First</footer>
@@ -155,6 +171,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // SLIDER
             const container = document.getElementById('heroSlider'), overlay = document.getElementById('sliderOverlay'), overlayImg = document.getElementById('overlayImage'), handle = document.getElementById('sliderHandle');
             let isResizing = false;
             if (container && handle) {
@@ -173,15 +190,39 @@
                 overlayImg.style.width = container.offsetWidth + 'px';
                 window.addEventListener('resize', () => overlayImg.style.width = container.offsetWidth + 'px');
             }
+
+            // ZOOM
             window.openZoom = function(src) { if (isResizing) return; document.getElementById('zoomedImage').src = src; document.getElementById('zoomModal').classList.add('active'); document.body.style.overflow = 'hidden'; };
             window.closeZoom = function() { document.getElementById('zoomModal').classList.remove('active'); document.body.style.overflow = 'auto'; };
             window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeZoom(); });
+
+            // WAITLIST SUBMISSION (Loops.so)
             const form = document.getElementById('waitlistForm');
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('responseMsg');
+
             if (form) {
-                form.addEventListener('submit', (e) => {
+                form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    document.getElementById('submitBtn').innerText = 'SENDING...';
-                    setTimeout(() => { form.classList.add('hidden'); document.getElementById('responseMsg').classList.remove('hidden'); }, 1000);
+                    const email = document.getElementById('emailInput').value;
+                    btn.innerText = "SENDING...";
+                    btn.disabled = true;
+
+                    try {
+                        const response = await fetch("https://app.loops.so/api/newsletter-form/cmo05yt0100uz0h32z4v2schw", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams({ "email": email })
+                        });
+
+                        if (response.ok) {
+                            form.classList.add('hidden');
+                            msg.classList.remove('hidden');
+                        } else { throw new Error('Failed'); }
+                    } catch (err) {
+                        btn.innerText = "TRY AGAIN";
+                        btn.disabled = false;
+                    }
                 });
             }
         });
